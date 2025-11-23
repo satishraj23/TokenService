@@ -1,11 +1,11 @@
 package com.security.service;
 
-import java.nio.charset.StandardCharsets;
 import java.security.KeyFactory;
 import java.security.PrivateKey;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.util.Base64;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.joda.time.DateTime;
@@ -35,11 +35,11 @@ public class TokenServiceImpl implements TokenService {
 
 	}
 
-	private Map<String, String> buildClaim() {
+	private Map<String, List<String>> buildClaim() {
 
-		Map<String, String> claimsData = new HashMap<>();
+		Map<String, List<String>> claimsData = new HashMap<>();
 
-		claimsData.put("ROLE", "ADMIN");
+		claimsData.put("ROLE",List.of("ADMIN"));
 
 		return claimsData;
 
@@ -47,9 +47,6 @@ public class TokenServiceImpl implements TokenService {
 
 	private PrivateKey getPrivateKey() throws Exception {
 		ClassPathResource resource = new ClassPathResource("keys/private.pem");
-		String raw = new String(resource.getInputStream().readAllBytes(), StandardCharsets.UTF_8);
-		System.out.println("first 50 chars: " + raw.substring(0, Math.min(50, raw.length())));
-		
 
 		String key = new String(resource.getInputStream().readAllBytes());
 		key = key.replace("-----BEGIN PRIVATE KEY-----", "").replace("-----END PRIVATE KEY-----", "").replaceAll("\\s",

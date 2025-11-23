@@ -11,11 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.security.service.TokenService;
 
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:5173",allowCredentials = "true")
 public class TokenController {
 	
 	@Autowired
